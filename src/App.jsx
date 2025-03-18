@@ -1,24 +1,15 @@
-import { useContext, useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './components/header'
 import Hero from './static/hero'
-import { Button } from './components/ui/Button'
-import SearchBar from './components/SearchBar'
 import HowToUseSection from './static/HowToUseSection'
 import WhyToUseSection from './static/WhyToUseSection'
 import DataTableSection from './static/DataTableSection'
 import Footer from './components/Footer'
 // import { Toaster } from './components/ui/sonner'
-import { VideoDataContext } from './context/VideoDataContext'
-import { VideoData } from './Entity/VideoData'
 import { printConsole } from './utils/utils'
-import { FaVideo } from 'react-icons/fa6'
-import { MdAudiotrack } from 'react-icons/md'
-import { Users } from 'lucide-react'
 import { Toaster } from 'react-hot-toast'
-import BottomDrawer from './components/BottomDrawer'
+
 
 
 function App() {
