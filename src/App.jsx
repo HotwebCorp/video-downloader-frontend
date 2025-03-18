@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Header from './components/header'
+
 import Hero from './static/hero'
 import HowToUseSection from './static/HowToUseSection'
 import WhyToUseSection from './static/WhyToUseSection'
@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 // import { Toaster } from './components/ui/sonner'
 import { printConsole } from './utils/utils'
 import { Toaster } from 'react-hot-toast'
+import Header from './components/Header'
 
 
 
