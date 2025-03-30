@@ -11,9 +11,6 @@ import { printConsole } from './utils/utils'
 import { Toaster } from 'react-hot-toast'
 import Header from './components/Header'
 import Hero from './static/Hero'
-import ConformDialog from './components/ConformDialog'
-
-
 
 function App() {
 

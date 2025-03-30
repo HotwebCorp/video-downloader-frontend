@@ -4,8 +4,7 @@ import { IoMdDownload } from "react-icons/io";
 import { IoCodeDownload } from "react-icons/io5";
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-import { VideoData } from "@/Entity/VideoData";
+import { useEffect, useState } from "react";;
 import { isBlankOrEmpty, isValidURL, printConsole } from "@/utils/utils";
 import toast from "react-hot-toast";
 function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
@@ -13,7 +12,6 @@ function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
     const BASE_URL = import.meta.env.VITE_DOWNLOADME_BACKEND_BASE_URL;
     const downloadBestAPI = "api/v1/video/download?url=";
     const formatAPI = "api/v1/video/formats?url="
-
 
     const [videoLink, setVideoLink] = useState("");
     const [startedDownload, setStartedDownload] = useState(false);

@@ -3,9 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { MdDownloadForOffline } from "react-icons/md";
 import { FaVideo } from "react-icons/fa";
 import { MdAudiotrack } from "react-icons/md";
-import { useContext, useEffect, useState } from "react";
 import { convertSize, printConsole } from "@/utils/utils";
-import { useSonner } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import { Switch } from "@/components/ui/switch";
@@ -83,6 +81,8 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
 
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
+
+
 
             } catch (error) {
                 printConsole(error);

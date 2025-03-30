@@ -1,12 +1,9 @@
 import WhyToUseCard from "@/components/WhyToUseCard";
-import img from "../assets/react.svg";
 import fastIcon from "../assets/fast.svg"
 import highQualityIcon from "../assets/high quality.svg"
 import freeIcon from "../assets/Free.svg"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { useEffect, useState } from "react";
-import { printConsole } from "@/utils/utils";
 
 function WhyToUseSection() {
 
