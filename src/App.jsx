@@ -11,6 +11,7 @@ import { printConsole } from './utils/utils'
 import { Toaster } from 'react-hot-toast'
 import Header from './components/Header'
 import Hero from './static/Hero'
+import ConformDialog from './components/ConformDialog'
 
 
 
@@ -23,7 +24,8 @@ function App() {
   const [videoFormatId, setVideoFormatId] = useState("");
   const [audioFormatId, setAudioFormatId] = useState("");
   const [formatLoading, setFormatLoading] = useState(false);
-
+  const [isMobile, setIsMobile] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [mssg, setMssg] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -49,24 +51,32 @@ function App() {
     if (audioFormatId)
       printConsole(audioFormatId)
 
-  }, [videoFormatId, audioFormatId]);
+    printConsole(isDialogOpen);
+
+  }, [videoFormatId, audioFormatId, isDialogOpen]);
 
 
   useEffect(() => {
     printConsole(open)
-  }, [open])
 
+    printConsole("dialog Open : " + isDialogOpen)
+  }, [open, isDialogOpen])
+
+
+  const conformDownload = () => {
+    setIsDialogOpen(true);
+    printConsole(isDialogOpen)
+  }
 
   return (
     <div className='p-1'>
+
       <Header setOpen={setOpen}></Header>
-      <Hero videoData={videoData} setVideoData={setVideoData} setFormatLoading={setFormatLoading}></Hero>
+      <Hero videoData={videoData} setVideoData={setVideoData} setFormatLoading={setFormatLoading} conformDownload={conformDownload}></Hero>
       <DataTableSection videoData={videoData} formats={videoFormats} setFormatId={setVideoFormatId} formatLoading={formatLoading}></DataTableSection>
       <HowToUseSection> </HowToUseSection>
       <WhyToUseSection> </WhyToUseSection>
-      // <Toaster></Toaster>
-      {/* <Toaster></Toaster> */}
-      {/* <BottomDrawer setOpen={setOpen} open={open}></BottomDrawer> */}
+      <Toaster position='top-right'></Toaster>
       <Footer></Footer>
 
     </div>

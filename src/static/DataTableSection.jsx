@@ -6,7 +6,6 @@ import { MdAudiotrack } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
 import { convertSize, printConsole } from "@/utils/utils";
 import { useSonner } from "sonner";
-import { BASE_URL, downloadSelectedFormat, PATH_SUFIX } from "@/services/DownloaderServices";
 import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import { Switch } from "@/components/ui/switch";
@@ -15,13 +14,16 @@ import { Label } from "@/components/ui/label";
 
 function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
 
+    const BASE_URL = import.meta.env.VITE_DOWNLOADME_BACKEND_BASE_URL;
+    const PATH_SUFIX = "api/v1/";
+
     const [selectedType, setSelectedType] = useState("video");
     const [audioFormats, setAudioFormats] = useState([]);
     const [videoFormats, setVideoFormats] = useState([]);
     const [localFormatId, setLocalFormatId] = useState();
     const [videoUrl, setVideoUrl] = useState();
     const [videoTitle, setVideoTitle] = useState();
-    const [videoOnly, setVideoOnly] = useState(false);
+    const [videoOnly, setVideoOnly] = useState(true);
 
     useEffect(() => {
         if (videoData?.formats) {
@@ -45,27 +47,30 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
     }
 
     const downloadFormat = async (formatId) => {
-
+        printConsole(videoUrl,formatId)
         toast.promise(async () => {
 
             try {
 
                 setLocalFormatId(formatId);
                 let fileName = "video.mp4";
-                const DOWNLOAD_SELECTED_FORMAT_API = BASE_URL + PATH_SUFIX + "video/download/format?url=" + videoUrl + "&&formatId=" + formatId;
+                const DOWNLOAD_SELECTED_FORMAT_API = BASE_URL + PATH_SUFIX + "video/download/format?url=" + videoUrl + "&&formatId=" + formatId + "&&videoOnly=" + videoOnly;
                 const response = await fetch(DOWNLOAD_SELECTED_FORMAT_API, { method: "GET" });
 
+                if (!response.ok) {
+                    throw new Error("Failed to download. Try after Some Time");
+                }
 
                 const contentDisposition = response.headers.get("content-disposition");
 
                 if (contentDisposition) {
                     const match = contentDisposition.match(/filename="?([^"]+)"?/);
                     if (match && match[1]) {
-                        printConsole(match)
                         fileName = match[1];
                     }
                 }
 
+            
                 const video = await response.blob();
                 const url = window.URL.createObjectURL(video);
 
@@ -79,18 +84,17 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
 
-
-
             } catch (error) {
-
+                printConsole(error);
+                throw error;
             } finally {
 
             }
 
         }, {
-            loading: "Downloading video...",
+            loading: "Downloading content",
             success: "Download complete! 🎉",
-            error: "Failed to download video. Please try again.",
+            error: "Failed to download content. Please try again.",
 
         })
 
@@ -113,10 +117,11 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
 
         (
 
-            <div className=" flex justify-center">
-                <div className="flex justify-center flex-col md:w-3/4 w-full">
+            <div className=" flex justify-center mb-10 ">
+                <div className="flex   flex-col  w-11/12">
 
-                    <div className="flex flex-row p-2 align-middle w-fit rounded-2xl bg-blue-100 ">
+                    {/* Video Audio Row   */}
+                    <div className="flex flex-row  justify-center p-2  w-full sm:w-fit rounded-2xl bg-blue-100 shadow-2xs ">
                         <div className="mr-1">
                             <Button className={` text-black ${selectedType == "video" ? "bg-blue-200 font-bold" : "bg-blue-100"}`} onClick={() => selectType("video")}>
                                 <FaVideo className="mr-0.5" />
@@ -124,22 +129,22 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
                             </Button>
                         </div>
                         <div>
-                            <Button className={`text-black mr-1 ${selectedType == "audio" ? "bg-blue-200 font-bold" : "bg-blue-100"}`} onClick={() => selectType("audio")}>
+                            <Button className={`text-black  mr-1  ${selectedType == "audio" ? "bg-blue-200 font-bold" : "bg-blue-100"}`} onClick={() => selectType("audio")}>
                                 <MdAudiotrack className="mr-0.5" />
                                 AUDIO
                             </Button>
                         </div>
 
-                        <div className=" flex flex- items-center">
+                        <div className=" flex flex- items-center ">
                             <Switch className="mr-1" checked={videoOnly} onCheckedChange={setVideoOnly} />
                             <Label className={` ${videoOnly ? "font-bold" : ""}`} >Video Only</Label>
                         </div>
 
                     </div>
 
-                    <div className="" >
+                    <div className=" shadow-2xl rounded-2xl " >
 
-                        <Table className="text-center" >
+                        <Table className="text-center font-semibold text-gray-700" >
                             <TableHeader >
                                 <TableRow >
                                     <TableHead className="text-center">FORMAT</TableHead>
@@ -152,9 +157,9 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
                             {
                                 formatLoading ?
 
-                                    <TableBody>
+                                    <TableBody >
                                         <TableRow>
-                                            <TableCell>
+                                            <TableCell >
                                                 <Skeleton className="w-full h-[30px]" />
                                             </TableCell>
                                             <TableCell>
@@ -218,7 +223,7 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
 
                                     selectedType === 'video' ?
 
-                                        <TableBody>
+                                        <TableBody className="font-semibold text-gray-600">
                                             {
                                                 videoFormats.map((format, index) => (
                                                     <TableRow key={index}>
@@ -237,13 +242,14 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
 
                                         :
 
-                                        <TableBody>
+                                        <TableBody className="font-semibold text-gray-600">
                                             {
                                                 audioFormats.map((format, index) => (
                                                     <TableRow key={index}>
                                                         <TableCell>{format.ext}</TableCell>
                                                         <TableCell>{format.formatNote}</TableCell>
-                                                        <TableCell>{convertSize(format.fileSize)}</TableCell>
+                                                        <TableCell>{format.fileSize ? convertSize(format.fileSize) : convertSize(format.
+                                                            fileSizeApprox)}</TableCell>
                                                         <TableCell>
                                                             <Button onClick={() => downloadFormat(format.formatId)}>
                                                                 <MdDownloadForOffline />

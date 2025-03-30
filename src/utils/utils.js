@@ -6,13 +6,18 @@
   3. Instagram
   4. Facebook so on
   */
-export const isValidURL = (url) =>{
+export const isValidURL = (url) => {
+
     const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/\S*)?$/;
     const isTrue = urlPattern.test(url);
 
-    console.log(url+":"+isTrue)
+    console.log(url + ":" + isTrue)
 
     return isTrue
+}
+
+export function isBlankOrEmpty(url) {
+    return url == "" || url == null;
 }
 
 /** 
@@ -21,10 +26,10 @@ export const isValidURL = (url) =>{
  1 GB = 1024 MB
  1 TB = 1024 GB 
  */
-export function  convertSize(size){
-    return (size/(1024*1024)).toFixed(2)+" MB";
+export function convertSize(size) {
+    return (size / (1024 * 1024)).toFixed(2) + " MB";
 }
 
-export function printConsole(...msg){
+export function printConsole(...msg) {
     console.log(msg);
 }

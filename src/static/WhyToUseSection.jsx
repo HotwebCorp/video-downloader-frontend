@@ -3,6 +3,10 @@ import img from "../assets/react.svg";
 import fastIcon from "../assets/fast.svg"
 import highQualityIcon from "../assets/high quality.svg"
 import freeIcon from "../assets/Free.svg"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { useEffect, useState } from "react";
+import { printConsole } from "@/utils/utils";
 
 function WhyToUseSection() {
 
@@ -25,19 +29,33 @@ function WhyToUseSection() {
                 colour: "bg-[#FEB0E1]"
         }
         ];
+
+
         return (
-                <div>
-                        <h2 className="font-bold text-lg text-center lg:text-4xl ">Why To Use</h2>
-                        <h3 className="text-3xl lg:text-5xl mb-4 font-extrabold text-center bg-gradient-to-r from-blue-950 to to-blue-300 bg-clip-text text-transparent">Download Me</h3>
-                        <div className="lg:flex">
-                                {
-                                        whyToUseContents.map((value, index) => (
-                                                <WhyToUseCard key={index} colour={value.colour} title={value.title} source={value.source} content={value.content}></WhyToUseCard>
-                                        ))
-                                }
-                        </div>
+
+                <div className="flex justify-center mb-10  ">
+                        <Carousel className='w-11/12' plugins={[
+                                Autoplay({
+                                        delay: 2500,
+                                })
+                        ]} opts={{
+                                loop: true,
+                        }}>
+                                <h2 className="font-bold text-lg text-center lg:text-4xl ">Why To Use</h2>
+                                <h3 className="text-3xl lg:text-5xl mb-6 font-extrabold text-center bg-gradient-to-r from-blue-950 to to-blue-300 bg-clip-text text-transparent">Download Me</h3>
+                                <CarouselContent >
+                                        {
+                                                whyToUseContents.map((value, index) => (
+                                                        <CarouselItem key={index}  >
+                                                                <WhyToUseCard key={index} colour={value.colour} title={value.title} source={value.source} content={value.content}></WhyToUseCard>
+                                                        </CarouselItem>
+                                                ))
+                                        }
+                                </CarouselContent>
+                        </Carousel>
 
                 </div>
+
         )
 }
 

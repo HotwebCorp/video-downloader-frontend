@@ -1,7 +1,7 @@
 import { isValidURL, printConsole } from "@/utils/utils"
 
-// export const BASE_URL = "http://localhost:8080/";
-export const BASE_URL = "https://vd.downloadme.in/"
+export const BASE_URL = "http://localhost:8080/";
+// export const BASE_URL = "https://vd.downloadme.in/"
 export const PATH_SUFIX = "api/v1/"
 
 export const getFormatsService = async (url) => {
