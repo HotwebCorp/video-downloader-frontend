@@ -47,6 +47,10 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
 
     const downloadFormat = async (formatId) => {
         printConsole(videoUrl,formatId)
+
+        if(!confirm("Are you sure ?"))
+            return;
+
         toast.promise(async () => {
 
             try {
