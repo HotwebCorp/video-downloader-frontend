@@ -17,7 +17,6 @@ function Header({ setOpen }) {
                     </div>
                 </div>
 
-
                 <div className=" flex  items-center w-60 justify-center font-bold ">Beta Version</div>
 
                
