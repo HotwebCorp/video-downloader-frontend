@@ -4,7 +4,7 @@ import { IoMdDownload } from "react-icons/io";
 import { IoCodeDownload } from "react-icons/io5";
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-import { useEffect, useState } from "react";;
+import { useEffect, useState } from "react";
 import { isBlankOrEmpty, isValidURL, printConsole } from "@/utils/utils";
 import toast from "react-hot-toast";
 function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
@@ -55,15 +55,9 @@ function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
                 printConsole(startedDownload);
 
                 let fileName = "video";
-
                 const downloadAPI = BASE_URL + downloadBestAPI + videoLink;
                 const response = await fetch(downloadAPI, { method: "GET" });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch video");
-                }
-
-
+                        
                 const contentDisposition = response.headers.get("content-disposition");
 
                 if (contentDisposition) {
@@ -136,7 +130,7 @@ function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
                 setVideoData(data)
 
             } catch (error) {
-                toast.error(error);
+                throw new Error(error);
             } finally {
                 setFormatLoading(false);
             }
