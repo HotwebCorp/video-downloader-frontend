@@ -115,9 +115,12 @@ function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
 
             try {
                 const getFormatAPI = BASE_URL + formatAPI + videoLink;
+                printConsole(getFormatAPI)
+                printConsole(BASE_URL)
                 const response = await fetch(getFormatAPI, { method: "GET" });
 
                 printConsole(response.headers);
+                printConsole(response.status);
 
                 for (let [key, value] of response.headers.entries()) {
                     console.log(`${key}: ${value}`);
@@ -130,6 +133,7 @@ function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
                 setVideoData(data)
 
             } catch (error) {
+                printConsole(error);
                 throw new Error(error);
             } finally {
                 setFormatLoading(false);
