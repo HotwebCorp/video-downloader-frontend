@@ -131,14 +131,14 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
 
   return (
     (videoData || formatLoading) && (
-      <div className=" flex justify-center mb-10 ">
+      <div className="flex justify-center mb-10 ">
         <div className="flex   flex-col  w-11/12">
           {/* Video Audio Row   */}
           <div className=" flex flex-col md:flex-row  items-center text-center  justify-center  p-2  w-full sm:w-fit rounded-2xl bg-blue-100 shadow-2xs ">
             <div className="flex flex-row ">
               <div className="mr-1">
                 <Button
-                  className={` text-black ${
+                  className={`text-black hover:bg-blue-200   ${
                     selectedType == "video"
                       ? "bg-blue-200 font-bold"
                       : "bg-blue-100"
@@ -151,7 +151,7 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
               </div>
               <div>
                 <Button
-                  className={`text-black  mr-1  ${
+                  className={`text-black hover:bg-blue-200  mr-1  ${
                     selectedType == "audio"
                       ? "bg-blue-200 font-bold"
                       : "bg-blue-100"
