@@ -185,7 +185,7 @@ function Hero({ videoData, setVideoData, setFormatLoading, conformDownload }) {
         </div>
       </div>
 
-      <div className="bg-gray-800  text-gray-300   w-65 pt-10 pb-4 rounded-b-3xl lg:w-1/3 shadow-2xl">
+      <div className="bg-gray-800 text-gray-300   w-65 pt-10 pb-4 rounded-b-3xl lg:w-1/3 shadow-2xl">
         <div className="flex flex-row items-center justify-around">
           <p className="text-sm mr-2 ">Supported Platform : </p>
 
