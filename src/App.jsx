@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
 
-
-import HowToUseSection from './static/HowToUseSection'
-import WhyToUseSection from './static/WhyToUseSection'
-import DataTableSection from './static/DataTableSection'
-import Footer from './components/Footer'
+import HowToUseSection from "./static/HowToUseSection";
+import WhyToUseSection from "./static/WhyToUseSection";
+import DataTableSection from "./static/DataTableSection";
+import Footer from "./components/Footer";
 // import { Toaster } from './components/ui/sonner'
-import { printConsole } from './utils/utils'
-import { Toaster } from 'react-hot-toast'
-import Header from './components/Header'
-import Hero from './static/Hero'
+import { printConsole } from "./utils/utils";
+import { Toaster } from "react-hot-toast";
+import Header from "./components/Header";
+import Hero from "./static/Hero";
+import { Helmet } from "react-helmet";
 
 function App() {
-
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const [videoData, setVideoData] = useState(null);
   const [audioFormats, setAudioFormats] = useState([]);
   const [videoFormats, setVideoFormats] = useState([]);
@@ -27,7 +26,7 @@ function App() {
   const [open, setOpen] = useState(false);
 
   const updateVideoData = (videoData) => {
-    console.log("on APP Update Function")
+    console.log("on APP Update Function");
     console.log(videoData);
     setVideoData(videoData);
     console.log(this.videoData);
@@ -35,50 +34,59 @@ function App() {
 
   useEffect(() => {
     if (videoData?.formats) {
-      setAudioFormats(videoData?.formats.filter(format => format.resolution === "audio only"));
-      setVideoFormats(videoData?.formats.filter(format => format.resolution != "audio only"));
+      setAudioFormats(
+        videoData?.formats.filter(
+          (format) => format.resolution === "audio only"
+        )
+      );
+      setVideoFormats(
+        videoData?.formats.filter((format) => format.resolution != "audio only")
+      );
     }
   }, [videoData]);
 
   useEffect(() => {
     if (videoFormatId) {
-      printConsole(videoFormatId)
+      printConsole(videoFormatId);
     }
 
-    if (audioFormatId)
-      printConsole(audioFormatId)
+    if (audioFormatId) printConsole(audioFormatId);
 
     printConsole(isDialogOpen);
-
   }, [videoFormatId, audioFormatId, isDialogOpen]);
 
-
   useEffect(() => {
-    printConsole(open)
+    printConsole(open);
 
-    printConsole("dialog Open : " + isDialogOpen)
-  }, [open, isDialogOpen])
-
+    printConsole("dialog Open : " + isDialogOpen);
+  }, [open, isDialogOpen]);
 
   const conformDownload = () => {
     setIsDialogOpen(true);
-    printConsole(isDialogOpen)
-  }
+    printConsole(isDialogOpen);
+  };
 
   return (
-    <div className='p-1'>
-
+    <div className="p-1">
       <Header setOpen={setOpen}></Header>
-      <Hero videoData={videoData} setVideoData={setVideoData} setFormatLoading={setFormatLoading} conformDownload={conformDownload}></Hero>
-      <DataTableSection videoData={videoData} formats={videoFormats} setFormatId={setVideoFormatId} formatLoading={formatLoading}></DataTableSection>
+      <Hero
+        videoData={videoData}
+        setVideoData={setVideoData}
+        setFormatLoading={setFormatLoading}
+        conformDownload={conformDownload}
+      ></Hero>
+      <DataTableSection
+        videoData={videoData}
+        formats={videoFormats}
+        setFormatId={setVideoFormatId}
+        formatLoading={formatLoading}
+      ></DataTableSection>
       <HowToUseSection> </HowToUseSection>
       <WhyToUseSection> </WhyToUseSection>
-      <Toaster position='top-right'></Toaster>
+      <Toaster position="top-right"></Toaster>
       <Footer></Footer>
-
     </div>
-
-  )
+  );
 }
 
-export default App
+export default App;
