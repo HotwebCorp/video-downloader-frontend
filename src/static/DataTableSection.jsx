@@ -10,7 +10,7 @@ import {
 import { MdDownloadForOffline } from "react-icons/md";
 import { FaVideo } from "react-icons/fa";
 import { MdAudiotrack } from "react-icons/md";
-import { convertSize, printConsole } from "@/utils/utils";
+import { BiSort } from "react-icons/bi";
 import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import { Switch } from "@/components/ui/switch";
@@ -28,6 +28,7 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
   const [videoUrl, setVideoUrl] = useState();
   const [videoTitle, setVideoTitle] = useState();
   const [videoOnly, setVideoOnly] = useState(true);
+  const [sort, setSort] = useState(false);
 
   useEffect(() => {
     if (videoData?.formats) {
@@ -129,6 +130,19 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
     // printConsole(fileName);
   };
 
+  const sortVideoData = () => {
+    let sorted = [...videoFormats];
+    if (sort) {
+      sorted.sort((a, b) => parseInt(a.fileSize) - parseInt(b.fileSize));
+      setSort(false);
+    } else {
+      sorted.sort((a, b) => parseInt(b.fileSize) - parseInt(a.fileSize));
+      setSort(true);
+    }
+    printConsole(sorted);
+    setVideoFormats(sorted);
+  };
+
   return (
     (videoData || formatLoading) && (
       <div className="flex justify-center mb-10 ">
@@ -192,7 +206,10 @@ function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
                 <TableRow>
                   <TableHead className="text-center">FORMAT</TableHead>
                   <TableHead className="text-center">QUALITY</TableHead>
-                  <TableHead className="text-center">SIZE</TableHead>
+                  <TableHead className="text-center flex  justify-center items-center ">
+                    SIZE
+                    <BiSort onClick={() => sortVideoData()} />
+                  </TableHead>
                   <TableHead className="text-center">ACTION</TableHead>
                 </TableRow>
               </TableHeader>
