@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import { printConsole } from "@/utils/utils";
+import { convertSize, printConsole } from "@/utils/utils";
 
 function DataTableSection({ formats, setFormatId, videoData, formatLoading }) {
   const BASE_URL = import.meta.env.VITE_DOWNLOADME_BACKEND_BASE_URL;
